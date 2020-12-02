@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
+  <!-- <script src='https://code.jquery.com/jquery-2.2.4.min.js'></script> -->
+<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
+<!-- <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css'>
+ -->
+
+    <title>Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/styleforms.css') }}"> -->
+
+    
+    <!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/index.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/mail.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/back.css') }}">
+    <style>
+      /* Center the loader */
+
+
+
+      .formsubmit1 {
+  background-color:#f4511e; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.formsubmit1:hover {background-color: #e28f84}
+
+input[type=text], select, textarea {
+  width: 85%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+#formsubmit {
+  background-color: rgb(103, 196, 100);
+  color: white;
+  position: relative;
+  left: 80%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+#formsubmit:hover {
+  background-color: #45a049;
+}
+textarea {resize: none}
+
+.forms {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+
+
+
+
+
+      #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+      }
+      
+      @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Add animation to "page content" */
+      .animate-bottom {
+        position: relative;
+        -webkit-animation-name: animatebottom;
+        -webkit-animation-duration: 1s;
+        animation-name: animatebottom;
+        animation-duration: 1s
+      }
+      
+      @-webkit-keyframes animatebottom {
+        from { bottom:-100px; opacity:0 } 
+        to { bottom:0px; opacity:1 }
+      }
+      
+      @keyframes animatebottom { 
+        from{ bottom:-100px; opacity:0 } 
+        to{ bottom:0; opacity:1 }
+      }
+      
+      #myDiv {
+        display: none;
+        text-align: center;
+      }
+      </style>
+
+
+
+
+  </head>
+  <body>
+
+    <header>
+         
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <ul class="navbar-nav mr-auto">
+              <div class="container" onclick="animatetoggle(this)" >
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                </div>
+          </ul>
+          
+    </header>
+
+    <main role="main">
+      
+      <br>
+      <div id="Dashboard" class="dispContent1">
+        <div class="container-fluid">
+          <div class="row">
+          
+            <nav class="col-md-2  d-md-block bg-light sidebar" id="toggles" style="display:none;">
+              <div class="sidebar-sticky" style="position:relative;background:#e8e8e8">
+                <ul class="nav flex-column">
+                
+                  
+                  <li class="nav-item1" style="position:relative;display: inline-block;height: 74px;">
+                      <br/>
+                    <a class="nav-link" href="#" onclick="myResources()">
+                      <span data-feather="file"></span>
+                      My Inventory
+                      <hr>
+                    </a>
+                  </li>
+                  
+                  <li class="nav-item2" style="position:relative;display: inline-block;height: 50px;">
+                    <a class="nav-link" href="#" onclick="dashhome()">
+                      <span data-feather="shopping-cart"></span>
+                      My Requests
+                      <hr>
+                    </a>
+                  </li>
+
+                  <li class="nav-item3" style="position:relative;display: inline-block;height: 50px;">
+                    <a class="nav-link" href="#" onclick="dashmessages()">
+                      <span data-feather="shopping-cart"></span>
+                      My Messages
+                      <hr>
+                    </a>
+                  </li>
+                  
+                </ul> 
+              </div>
+            </nav>
+    
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 ">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2" id="main">Your Messages</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+         
+                </div>
+              </div>
+              <div>
+
+              </div>
+            </main>
+            
+            
+            
+          </div>
+          
+        </div>
+      </div>
+      
+
+    </main>
+
+    
+    <div class="land-info" id="land" style="position: absolute; left:17%; width:80%;">
+      
+      <section class="container">
+
+      <div>
+        <input id="search" class="light-table-filter" data-table="order-table" placeholder="Filter">
+      
+        <table class="order-table table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>Items</th>
+            </tr>
+          </thead>
+          <tbody id="replace">
+            
+          </tbody>
+        </table>
+      </div>
+      </section>      
+    </div>
+
+
+    
+
+    <div id="loader" class="loader" style="display:none"></div>
+
+    <div id="camps" class="campstatus" style="display:none; position: relative; left: 20%; margin:0; width: 80%; "onload="myFunction()">
+<!-- cards go here with names and charts-->
+  
+
+      <section style="position:relative; width:80%">
+          <canvas id="myres" style="width:100%"></canvas>
+      </section>
+      <br/>
+      <hr/>
+
+      <div id="update" style="position: relative; width:80%;">
+        <h4>Update/Add form</h4>
+        <form >
+          <label>Name :</label> <input type="text" name="name" style="width:40%" id="name" placeholder="Name"><br>
+          <label>Quantity :</label><input type="text" name="qty" id="qty" style="width:40%"><br>
+          <label>Unit :</label> 
+          <select id="dropdown" style="width:40%">
+              <option style="width:40%" value="Number">number</option>
+              <option style="width:40%" value="Kg">kg</option>
+              <option style="width:40%" value="Others">others</option>
+            </select>
+          <br/>
+          <button class="button button2" type="button" style="position:relative; left:140px;" onclick="updateResources()">Update</button>
+
+        </form>
+      </div>
+
+      <br/>
+      <hr/>
+
+      <div id="delete" style="position: relative; width:80%;">
+          <h4>Delete/Donated Form</h4>
+          <form >
+            <label>Name :</label> <input style="width:40%" type="text" name="name1" id="name1"><br>
+            <label>Quantity: </label> <input style="width:40%" type="text" name="qty1" id="qty1"><br>
+            <label>Unit :</label> 
+            <select id="dropdown1" style="width:40%">
+              <option style="width:40%" value="Number">number</option>
+              <option style="width:40%" value="Kg">kg</option>
+              <option style="width:40%" value="Others">others</option>
+            </select>
+            <br/>
+
+            <button class="button button2" type="button" style="position:relative; left:140px;" onclick="deleteResources()">Delete</button>
+           
+  
+          </form>
+        </div>
+        
+        <br/>
+        <hr/>
+
+
+    </div>
+
+
+
+    
+
+    <div class="thread" id="thread" style="position: absolute; left:18%; width:80%;display: none;">
+        <section class="thread-container">
+
+      <h4 style="display:inline"><b id="topicname">--------This is the Topic Thread----------</b></h4>
+      <p id="indices" style="display:none;">index</p>
+      <div id="threadinfo">
+          <hr>
+          <p><strong style="color:#f4511e"> User1:</strong> need so many stuffs!!</p>
+          <hr>
+          <p>User2:Okay we'll help you</p>
+          <hr>
+    </div>
+      <br/>
+      <br/>
+      <hr>
+      <div>
+      <h5>Comments</h5>
+      <textarea type="text" id="reply" style="height:110px;width:100%"></textarea> 
+      <br>
+      <br>
+      
+      <button class="button12" onclick="goback()"><span class="hov" >Back </span></button>
+      <button style="background:gainsboro; border-radius:4px;position: relative; left:81%; width: 100px;height: 50px;cursor: pointer;" onclick="reply()">Submit</button>
+    </div>
+    </section>
+    </div>
+
+    
+    <div class="forms" id="forms" style="position: absolute; left:18%; width:80%; display: none;">
+
+        <form >
+          <div class="row">
+            <div class="col-25">
+              <label for="fname">Topic Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="fname" name="firstname" placeholder="Name of Thread">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="lname">Camp Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="lname" name="lastname" placeholder="Relief Camp Name">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-25">
+              <label for="subject">Subject</label>
+            </div>
+            <div class="col-75">
+              <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+            </div>
+          </div>
+          <div class="row">
+            <input id="formsubmit" type="submit" value="Submit">
+          </div>
+          </form>
+
+
+      </div>
+
+
+
+    <div class="messages" id="messages" style="position: absolute; left:17%; width:80%;display: none">
+      
+      <!-- <button class="formsubmit1"> Create an alert!</button> -->
+
+   
+
+      <section class="message-container">
+
+      <div class="message-section">
+        
+            <div class="inbox-body">
+                <input id="search" class="light-table-filter" data-table="table-inbox" placeholder="Filter">
+              <table class="table table-inbox table-hover" >
+                  <thead>
+                      <tr>
+                        <th></th>
+                        <th></th>
+                        <th>Relief CampName</th>
+                        <th>Topic</th>
+                        <th></th>
+                        
+                        <th style="position: absolute; right:40px;">DateTime</th>
+                      </tr>
+                    </thead>
+                <tbody id="message-replacer">
+                  <tr class="unread" onclick="showthread()">
+                    <td class="inbox-small-cells">
+                    </td>
+                    <td class='inbox-small-cells'><i class="fa fa-star"></i></td>
+                    <td class="view-message  dont-show">PHPClass</td>
+                    <td class="view-message ">Added a new class: Login Class Fast Site</td>
+                    <td class="view-message  inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message  text-right">9:27 AM</td>
+                  </tr>
+                  <tr class="unread">
+                    <td class="inbox-small-cells">
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Google Webmaster </td>
+                    <td class="view-message">Improve the search presence of WebSite</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">March 15</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">JW Player</td>
+                    <td class="view-message">Last Chance: Upgrade to Pro for </td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">March 15</td>
+                  </tr>
+                  
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Skype <span class="label label-info pull-right">family</span></td>
+                    <td class="view-message view-message">Password successfully changed</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">March 24</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                    <td class="view-message dont-show">Google+</td>
+                    <td class="view-message">alireza, do you know</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">March 09</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                    <td class="dont-show">Zoosk </td>
+                    <td class="view-message">7 new singles we think you'll like</td>
+                    <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message text-right">May 14</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">LinkedIn </td>
+                    <td class="view-message">Alireza: Nokia Networks, System Group and </td>
+                    <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message text-right">February 25</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="dont-show">Facebook</td>
+                    <td class="view-message view-message">Your account was recently logged into</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">March 14</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Twitter</td>
+                    <td class="view-message">Your Twitter password has been changed</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">April 07</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">InternetSeer Website Monitoring</td>
+                    <td class="view-message">http://golddesigner.org/ Performance Report</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">July 14</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                    <td class="view-message dont-show">AddMe.com</td>
+                    <td class="view-message">Submit Your Website to the AddMe Business Directory</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">August 10</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Terri Rexer, S P N</td>
+                    <td class="view-message view-message">Forget Google AdWords: Un-Limited Clicks fo</td>
+                    <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message text-right">April 14</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Bertina </td>
+                    <td class="view-message">IMPORTANT: Don't lose your domains!</td>
+                    <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message text-right">June 16</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                    <td class="view-message dont-show">Laura Gaffin, S P N </td>
+                    <td class="view-message">Your Website On Google (Higher Rankings Are Better)</td>
+                    <td class="view-message inbox-small-cells"></td>
+                    <td class="view-message text-right">August 10</td>
+                  </tr>
+                  <tr class="">
+                    <td class="inbox-small-cells">
+                      
+                    </td>
+                    <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                    <td class="view-message dont-show">Facebook</td>
+                    <td class="view-message view-message">Alireza Zare Login faild</td>
+                    <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                    <td class="view-message text-right">feb 14</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+
+
+
+            
+      </div>
+      </section>      
+    </div>
+
+
+    
+
+  
+
+    
+
+
+
+    
+      <script   src= "{{ url_for('static',filename='js/dashboard.js') }}"> </script>
+      <script   src= "{{ url_for('static',filename='js/forms.js') }}"> </script>
+      <script   src= "{{ url_for('static',filename='js/back.js') }}"> </script>
+
+      <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+
+    <script>
+    
+    $(".nav-item1, .nav-item2, .nav-item3").hover(function(e) { 
+    $(this).css("background-color",e.type === "mouseenter"?"lightgrey":"transparent") 
+})
+    
+    function animatetoggle(x) {
+      x.classList.toggle("change");
+      var ob = document.getElementById("toggles");
+      ob.style.backgroundColor = "#89897d";
+      ob.style.height = "259px";
+      if(ob.style.display=="none"){
+      ob.style.display="block";
+      }
+      else{
+        ob.style.display="none";
+      }
+  }</script>
+
+<script>
+  $(document).ready(function(){
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#replace tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  </script>
+  </body>
+</html>

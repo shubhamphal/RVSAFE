@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+    
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}">
+
+    <!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/index.css') }}">
+
+    <script  type= "text/javascript" href= "{{ url_for('static',filename='js/weather.js') }}"></script>
+
+    <style>
+      
+    
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+
+.button1 {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.button2:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+      </style>
+
+
+
+
+  </head>
+  <body>
+
+    <header>
+         
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <ul class="navbar-nav">
+              <li ><a href="https://rvngo.azurewebsites.net/home" style="color:white !important;text-decoration: none;">Home</a></li>
+          </ul>
+          <ul class="navbar-nav mr-auto">
+              <div class="container" onclick="animatetoggle(this)" >
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                </div>
+          </ul>
+          
+    </header>
+
+    <main role="main">
+      
+      <br>
+      <div id="Dashboard" class="dispContent1">
+        <div class="container-fluid">
+          <div class="row">
+            
+            <nav class="col-md-2  d-md-block bg-light sidebar" id="toggles" style="display:none;">
+              <div class="sidebar-sticky" style="position:relative">
+                <ul class="nav flex-column">
+                
+                  
+                  <li class="nav-item">
+                      <br/>
+                    <a class="nav-link" href="#" onclick="myResources()">
+                      <span data-feather="file"></span>
+                      Send Warnings
+                    </a>
+                  </li>
+            
+                  
+                </ul> 
+              </div>
+            </nav>
+    
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 ">
+              <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Dashboard</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+         
+                </div>
+              </div>
+            </main>
+            
+            
+            
+          </div>
+          
+        </div>
+      </div>
+      
+
+    </main>
+
+    <div class="land-info" id="land" style="position: absolute; left:17%; width:80%; display: block;">
+      
+      <section class="container">
+        <div style="position:relative; left: -100px; ">
+
+        <label style="position: relative; left:-10px;">Title:</label>
+        <input id="title" class="light-table-filter" data-table="order-table" placeholder="" style="position: relative;left: 30px;">
+      </div>
+      <br>
+
+
+      <div style="position:relative; left: -71px; ">
+
+        <label style="position: relative; left:-10px;">Location:</label>
+        <select style="position:relative; ">
+          <option value="volvo">Bengaluru</option>
+          <option value="volvo">Cochin</option>
+          <option value="saab">Hyderabad</option>
+          <option value="mercedes">New Delhi</option>
+          <option value="audi">more...</option>
+        </select> 
+      </div>
+
+        <!-- input text-->
+        <br/>
+        
+
+        <form>
+          <div class="form-group">
+            <label for="comment" style="position: relative; left: -35px;">Alert Message:</label>
+            <textarea class="form-control" rows="5" id="alert"></textarea>
+          </div>
+        </form>
+        <button class="button button2" onclick="weather()">Alert Users</button> 
+      </section>
+         
+    </div>
+
+   <!-- <div id="loader" style="display:none;"></div> -->
+
+   
+
+
+
+    
+      <script   src= "{{ url_for('static',filename='js/weather.js') }}"> </script>
+
+  
+
+    <script>function animatetoggle(x) {
+      x.classList.toggle("change");
+      var ob = document.getElementById("toggles");
+      ob.style.backgroundColor = "#89897d";
+      ob.style.height = "259px";
+      if(ob.style.display=="none"){
+      ob.style.display="block";
+      }
+      else{
+        ob.style.display="none";
+      }
+  }</script>
+
+<script>
+  $(document).ready(function(){
+    $("#search").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#replace tr").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+  </script>
+  </body>
+</html>

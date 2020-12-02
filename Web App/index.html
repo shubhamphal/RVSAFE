@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>NGO</title>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script   src= "{{ url_for('static',filename='js/login.js') }}"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel= "stylesheet" type= "text/css" href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "https://fonts.googleapis.com/css?family=Poiret+One">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    cursor: pointer;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.3), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+li {
+    float: left;
+    border-right:1px solid #bbb;
+}
+
+li:last-child {
+    border-right: none;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: rgb(94, 94, 102);
+}
+
+.active {
+    background-color: rgb(3, 78, 190);
+}
+
+</style>
+
+<script>
+
+    function ngo()
+    {
+        var l=document.getElementById("ngo1").className="active";
+  var l=document.getElementById("rescue1").className="";
+  var l=document.getElementById("weather1").className="";
+        var ob1 = document.getElementById("weather").style.display="none";
+        var ob2 = document.getElementById("ngo").style.display="block";
+        var ob3 = document.getElementById("rescue").style.display="none";
+    }
+
+    function weather()
+    {
+        var l=document.getElementById("ngo1").className="";
+  var l=document.getElementById("rescue1").className="";
+  var l=document.getElementById("weather1").className="active";
+        var ob1 = document.getElementById("weather").style.display="block";
+        var ob2 = document.getElementById("ngo").style.display="none";
+        var ob3 = document.getElementById("rescue").style.display="none";
+    }
+
+    function rescue()
+    {
+        var l=document.getElementById("ngo1").className="";
+  var l=document.getElementById("rescue1").className="active";
+  var l=document.getElementById("weather1").className="";
+        var ob1 = document.getElementById("weather").style.display="whinone";
+        var ob2 = document.getElementById("ngo").style.display="none";
+        var ob3 = document.getElementById("rescue").style.display="block";
+    }
+
+</script>
+
+</head>
+
+<body>
+
+
+  <!-- particles.js container -->
+   <div id="particles-js"></div>
+   <ul style="position:relative ; opacity: 0.8;">
+        <li><a class="active" id="ngo1"  onclick="ngo()" style="text-decoration:none;" ><strong>Login as Ngo </strong> </a></li>
+        <li><a  onclick="weather()" id="weather1"  style="text-decoration:none;"><strong>Login as Weather Agency</strong></a></li>
+        <li><a  onclick="rescue()" id="rescue1" style="text-decoration:none;"><strong>Login as Rescue Agency</strong></a></li>
+      </ul>
+    <div id="ngo" style="position: absolute;top: 30%;left: 30%; display: block;">
+
+            <div style="color: white;width: 350px;position: relative;left: 30%; top: 30%;box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 style="color: black;left: 29%;position: relative;">Ngo Login</h3>
+                            <form>
+                                <div class="input-group login-userinput">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input  id="txtPassword" type="password" class="form-control" name="password" placeholder="Password">
+                                    <span id="showPassword" class="input-group-btn"></span>
+                                </div>
+                                <button class="btn btn-primary btn-block login-button" type="button" onclick="loaddashboard()" ><i class="fa fa-sign-in"></i> Login</button>
+                                <div class="checkbox login-options">
+                                        <label><input type="checkbox"/> Remember Me</label>
+                                        <a href="#" class="login-forgot">Forgot Username/Password?</a>
+                            </form>
+                        </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+    <!-- stats - count particles -->
+
+    <div id="weather" style="position: absolute;top: 30%;left: 30%; display: none;">
+
+            <div style="color: white;width: 350px;position: relative;left: 30%; top: 30%;">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3 style="color: black;left: 15%;position: relative;">Weather Agency Login</h3>
+                            <form>
+                                <div class="input-group login-userinput">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                    <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                    <input  id="txtPassword" type="password" class="form-control" name="password" placeholder="Password">
+                                    <span id="showPassword" class="input-group-btn"></span>
+                                </div>
+                                <button class="btn btn-primary btn-block login-button" type="button" onclick="loadweather()" ><i class="fa fa-sign-in"></i> Login</button>
+                                <div class="checkbox login-options">
+                                        <label><input type="checkbox"/> Remember Me</label>
+                                        <a href="#" class="login-forgot">Forgot Username/Password?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+              </div>
+          </div>
+
+          <div id="rescue" style="position: absolute;top: 30%;left: 30%; display: none;">
+
+                  <div style="color: white;width: 350px;position: relative;left: 30%; top: 30%;">
+                          <div class="panel panel-default">
+                              <div class="panel-body">
+                                  <h3 style="color: black;left: 15%;position: relative;">Rescue Agency Login</h3>
+                                  <form>
+                                      <div class="input-group login-userinput">
+                                          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                          <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                                      </div>
+                                      <div class="input-group">
+                                          <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                          <input  id="txtPassword" type="password" class="form-control" name="password" placeholder="Password">
+                                          <span id="showPassword" class="input-group-btn"></span>
+                                      </div>
+                                      <button class="btn btn-primary btn-block login-button" type="button" onclick="loadrescue()" ><i class="fa fa-sign-in"></i> Login</button>
+                                      <div class="checkbox login-options">
+                                              <label><input type="checkbox"/> Remember Me</label>
+                                              <a href="#" class="login-forgot">Forgot Username/Password?</a>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+
+
+
+
+
+</body>
+<script   src= "{{ url_for('static',filename='js/index.js') }}"> </script>
+
+</html>

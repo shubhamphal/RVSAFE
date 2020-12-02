@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+            
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                <meta name="description" content="">
+                <meta name="author" content="">
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            
+                <title>Dashboard</title>
+            
+                <!-- Bootstrap core CSS -->
+                
+                <link rel= "stylesheet" type= "text/css" href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+                <link rel= "stylesheet" type= "text/css" href= "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+                <link rel= "stylesheet" type= "text/css" href= "https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+                <link rel= "stylesheet" type= "text/css" href= "https://fonts.googleapis.com/css?family=Poiret+One">
+
+                <!-- Custom styles for this template -->
+                <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/index.css') }}">
+            
+              </head>
+              <body>
+                    <div id="particles-js"></div>
+<div class="container login-form">
+        <h2 class="login-title">- Please Login -</h2>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form>
+                    <div class="input-group login-userinput">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input id="txtUser" type="text" class="form-control" name="username" placeholder="Username">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input  id="txtPassword" type="password" class="form-control" name="password" placeholder="Password">
+                        <span id="showPassword" class="input-group-btn">
+                <button class="btn btn-default reveal" type="button"><i class="glyphicon glyphicon-eye-open"></i></button>
+              </span>  
+                    </div>
+                    <button class="btn btn-primary btn-block login-button" type="submit"><i class="fa fa-sign-in"></i> Login</button>
+                    <div class="checkbox login-options">
+                        <label><input type="checkbox"/> Remember Me</label>
+                        <a href="#" class="login-forgot">Forgot Username/Password?</a>
+                    </div>		
+                </form>			
+            </div>
+        </div>
+    </div>
+</body>

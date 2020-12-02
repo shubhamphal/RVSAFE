@@ -1,0 +1,33 @@
+.messages{
+    position: relative;
+    
+    margin: 1em auto;
+    padding: 24px;
+    overflow: hidden; /* clip overflowing blur */
+    z-index: -1;
+    filter: blur(5px);
+
+  }
+  
+  .messages::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0;
+    left: 0;
+    filter: blur(5px);
+    z-index: -1;
+    transform:scale(1.05); 
+    /* slight overscale so blur reaches all edges */
+  }
+  
+  .forms {
+    position:relative;
+    
+    margin: auto;
+    background: rgba(0,0,0,0.0);
+    color:white;
+    display: flex;
+    justify-content: center;
+  }

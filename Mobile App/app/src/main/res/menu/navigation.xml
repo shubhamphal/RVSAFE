@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_people_outline_black_24dp"
+        android:title="Volunteer" />
+
+
+
+
+    <item
+        android:id="@+id/navigation_dashboard"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        android:title="Donate" />
+
+
+    <item
+        android:id="@+id/people_finder"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="People Finder" />
+
+
+</menu>

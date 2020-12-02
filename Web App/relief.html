@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+  <title>Dashboard</title>
+
+    <!-- Bootstrap core CSS -->
+
+    <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/bootstrap.css') }}"> -->
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static',filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Custom fonts for this template -->
+    <link href="{{ url_for('static',filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/mail.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/back.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/upload.css') }}">
+    <script   src= "{{ url_for('static',filename='js/relief.js') }}"> </script>
+    <script   src= "{{ url_for('static',filename='js/upload.js') }}"> </script>
+    <!-- Custom styles for this template -->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/index.css') }}">
+  <style>
+  /* The sidebar menu */
+.sidenav {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width:220px; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    z-index: 1; /* Stay on top */
+    top: 50px; /* Stay at the top */
+    right: 0;
+    background-color: #111; /* Black */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    font-family:"Varela Round";
+    text-align: center;
+    color: #FFFFFF;
+    display: block;
+}
+
+hr {
+   display: block;
+   position: relative;
+   padding: 0;
+   margin: 8px auto;
+   height: 0;
+   width: 100%;
+   max-height: 0;
+   font-size: 1px;
+   line-height: 0;
+   clear: both;
+   border: none;
+   border-top: 1px solid #aaaaaa;
+   border-bottom: 1px solid #ffffff;
+}
+
+#loader {
+  position: absolute;
+  left: 50vw;
+  top: 40vh;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.formsubmit1 {
+  background-color:#f4511e; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+  margin: 4px 2px;
+  cursor: pointer;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+.formsubmit1:hover {background-color: #e28f84}
+
+input[type=text], select, textarea {
+  width: 85%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+#formsubmit {
+  background-color: rgb(103, 196, 100);
+  color: white;
+  position: relative;
+  left: 80%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+#formsubmit:hover {
+  background-color: #45a049;
+}
+textarea {resize: none}
+
+.forms {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+li a:hover:not(.active) {
+    background-color: rgb(94, 94, 102);
+    cursor: pointer;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+</style>
+  </head>
+  <body>
+
+    <header>
+
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+          <ul class="navbar-nav">
+            <li style="color:white"><a href="https://rvngo.azurewebsites.net/home" style="color:white !important;text-decoration: none;">Home</a></li>
+            <li style="color:white"><a onclick="faceanalytics()" style="color:white !important;text-decoration: none;">Analytics</a></li>
+            <li style="color:white"><a onclick="dashmessages()" style="color:white !important;text-decoration: none;">Messages</a></li>
+            <li style="color:white"><a onclick="alertnew()" style="color:white !important;text-decoration: none;">Alert</a></li>
+            <li style="color:white"><a onclick="upload()" style="color:white !important;text-decoration: none;">Upload</a></li>
+            
+
+          </ul>
+          <ul class="navbar-nav mr-auto">
+              <div class="container" onclick="animatetoggle(this)" >
+                  <div class="bar1"></div>
+                  <div class="bar2"></div>
+                  <div class="bar3"></div>
+                </div>
+          </ul>
+      </nav>
+
+    </header>
+
+    <div style="padding-bottom:30px"></div>
+
+    <div class="container fluid">
+
+      <div id="maincontent" style="display:none">
+
+          <!-- Side navigation -->
+          <div class="sidenav">
+            OVERALL<br>
+            ANALYTICS
+            <div style="padding-bottom:10px"></div>
+
+            <p id="mt" style="font-family: 'Varela Round' "></p>
+            <hr style="color:white">
+            <p id="wt" style="font-family: 'Varela Round' "></p>
+            <hr style="color:white">
+            <p id="ct" style="font-family: 'Varela Round' "></p>
+            <hr style="color:white">
+            <p id="et" style="font-family: 'Varela Round' "></p>
+            <hr style="color:white">
+          </div>
+
+
+
+          <div class="row" id="faces" >
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+            <div class="card" style="width:85%;">
+              <img class="card-img-top" id="img1" alt="Card image" style="height:40vh">
+              <div class="card-body">
+                <h4 class="card-title">Analytics</h4>
+                <p class="card-text" style="font-family: 'Varela Round' " id="male"></p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="female"></p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="children"></p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="elders"></p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+            <div class="card" style="width:85%" >
+              <img class="card-img-top" alt="Card image" src="{{ url_for('static',filename='images/def.jpeg') }}" style="height:40vh">
+              <div class="card-body">
+                <h4 class="card-title">Analytics</h4>
+                <p class="card-text" style="font-family: 'Varela Round' " id="male">Men: 5</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="female">Women: 2</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="children">Children: 0</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="elders">Elderly: 0</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+            <div class="card" style="width:85%">
+              <img class="card-img-top" src="{{ url_for('static',filename='images/default1.jpeg') }}" alt="Card image" style="height:40vh">
+              <div class="card-body">
+                <h4 class="card-title">Analytics</h4>
+                <p class="card-text" style="font-family: 'Varela Round' " id="male">Men: 7</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="female">Women: 0</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="children">Children: 0</p>
+                <p class="card-text" style="font-family: 'Varela Round' " id="elders">Elderly: 2</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="image_upload" id="image_upload" style="position: absolute; width:96%;display: none;">
+          <div class="file-upload">
+            <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+          
+            <div class="image-upload-wrap">
+              <input class="file-upload-input" id="image" type='file' onchange="readURL(this);" accept="image/*" />
+              <div class="drag-text">
+                <h3>Drag and drop a file or select add Image</h3>
+              </div>
+            </div>
+            <div class="file-upload-content">
+              <img class="file-upload-image" src="#" alt="your image" />
+              <div class="image-title-wrap">
+                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                <button type="button" onclick="upload_asynch()" class="remove-image">upload <span class="image-title">Uploaded Image</span></button>
+              </div>
+            </div>
+          </div>
+            <hr style="position:relative; width:120%;">
+          <div>
+
+            <p><span>Group Images</span> </p>
+            <div class="row" id="reliefgroups">
+                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+                       <div class="card" style="width:85%">
+                       <img class="card-img-top" src="{{ url_for('static',filename='') }}" alt="Card image" style="height:40vh">
+                    <div class="card-body">
+                  
+                    </div>
+                    </div>
+                  </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+              <div class="card" style="width:85%">
+                <img class="card-img-top" src="{{ url_for('static',filename='') }}" alt="Card image" style="height:40vh">
+                <div class="card-body">
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+              <div class="card" style="width:85%">
+                <img class="card-img-top" src="{{ url_for('static',filename='') }}" alt="Card image" style="height:40vh">
+                <div class="card-body">
+                  
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="thread" id="thread" style="position: absolute; width:96%;display: none;">
+            <section class="thread-container">
+    
+          <h4 style="display:inline"><b id="topicname">--------This is the Topic Thread----------</b></h4>
+          <p id="indices" style="display:none;">index</p>
+          <div id="threadinfo">
+              <hr>
+              <p><strong style="color:#f4511e"> User1:</strong> need so many stuffs!!</p>
+              <hr>
+              <p>User2:Okay we'll help you</p>
+              <hr>
+        </div>
+          <br/>
+          <br/>
+          <hr>
+          <div>
+          <h5>Comments</h5>
+          <textarea type="text" id="reply" style="height:110px;width:100%"></textarea> 
+          <br>
+          <br>
+          
+          
+          <button style="background:gainsboro; border-radius:4px;position: relative; width: 100px;height: 50px;cursor: pointer;" onclick="reply()">Submit</button>
+          <button class="button12" style="border-radius:4px;position: relative; left:81%; width: 100px;height: 50px;cursor: pointer;" onclick="goback()"><span class="hov" >Back </span></button>
+        </div>
+        </section>
+        </div>
+
+
+
+    
+        
+        <div class="forms" id="forms" style="position: absolute;  width:96%; display: none;">
+    
+            <form >
+              <div class="row">
+                <div class="col-25">
+                  <label for="fname">Topic Name</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="fname" name="firstname" placeholder="Name of Thread">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-25">
+                  <label for="lname">Camp Name</label>
+                </div>
+                <div class="col-75">
+                  <input type="text" id="lname" name="lastname" placeholder="Relief Camp Name">
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-25">
+                  <label for="subject">Subject</label>
+                </div>
+                <div class="col-75">
+                  <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <input id="formsubmit" type="button" value="Submit" onclick="submit_thread()">
+              </div>
+              </form>
+    
+    
+          </div>
+
+
+
+    
+    
+    
+        <div class="messages" id="messages" style="position: absolute; width:96%; display: none;">
+          
+          <!-- <button class="formsubmit1"> Create an alert!</button> -->
+    
+       
+    
+          <section class="message-container">
+    
+          <div class="message-section">
+            
+                <div class="inbox-body">
+                    <input id="search" class="light-table-filter" data-table="table-inbox" placeholder="Filter">
+                  <table class="table table-inbox table-hover" >
+                      <thead>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Relief CampName</th>
+                            <th>Topic</th>
+                            <th></th>
+                            
+                            <th style="position: absolute; right:40px;">DateTime</th>
+                          </tr>
+                        </thead>
+                        
+                    <tbody id="message-replacer">
+                      <tr class="unread" onclick="showthread()">
+                        <td class="inbox-small-cells">
+                        </td>
+                        <td class='inbox-small-cells' style="display:none;"><i class="fa fa-star"></i></td>
+                        <td class="view-message  dont-show">PHPClass</td>
+                        <td class="view-message ">Added a new class: Login Class Fast Site</td>
+                        <td class="view-message  inbox-small-cells" style="display:none;"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message  text-right">9:27 AM</td>
+                      </tr>
+                      <tr class="unread">
+                        <td class="inbox-small-cells">
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Google Webmaster </td>
+                        <td class="view-message">Improve the search presence of WebSite</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">March 15</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">JW Player</td>
+                        <td class="view-message">Last Chance: Upgrade to Pro for </td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">March 15</td>
+                      </tr>
+                      
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Skype <span class="label label-info pull-right">family</span></td>
+                        <td class="view-message view-message">Password successfully changed</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">March 24</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                        <td class="view-message dont-show">Google+</td>
+                        <td class="view-message">alireza, do you know</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">March 09</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                        <td class="dont-show">Zoosk </td>
+                        <td class="view-message">7 new singles we think you'll like</td>
+                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message text-right">May 14</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">LinkedIn </td>
+                        <td class="view-message">Alireza: Nokia Networks, System Group and </td>
+                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message text-right">February 25</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="dont-show">Facebook</td>
+                        <td class="view-message view-message">Your account was recently logged into</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">March 14</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Twitter</td>
+                        <td class="view-message">Your Twitter password has been changed</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">April 07</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">InternetSeer Website Monitoring</td>
+                        <td class="view-message">https://golddesigner.org/ Performance Report</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">July 14</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                        <td class="view-message dont-show">AddMe.com</td>
+                        <td class="view-message">Submit Your Website to the AddMe Business Directory</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">August 10</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Terri Rexer, S P N</td>
+                        <td class="view-message view-message">Forget Google AdWords: Un-Limited Clicks fo</td>
+                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message text-right">April 14</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Bertina </td>
+                        <td class="view-message">IMPORTANT: Don't lose your domains!</td>
+                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message text-right">June 16</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star inbox-started"></i></td>
+                        <td class="view-message dont-show">Laura Gaffin, S P N </td>
+                        <td class="view-message">Your Website On Google (Higher Rankings Are Better)</td>
+                        <td class="view-message inbox-small-cells"></td>
+                        <td class="view-message text-right">August 10</td>
+                      </tr>
+                      <tr class="">
+                        <td class="inbox-small-cells">
+                          
+                        </td>
+                        <td class="inbox-small-cells"><i class="fa fa-star"></i></td>
+                        <td class="view-message dont-show">Facebook</td>
+                        <td class="view-message view-message">Alireza Zare Login faild</td>
+                        <td class="view-message inbox-small-cells"><i class="fa fa-paperclip"></i></td>
+                        <td class="view-message text-right">feb 14</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+    
+    
+    
+    
+                
+          </div>
+          </section>      
+        </div>
+    
+    
+
+
+
+
+
+
+    </div>
+
+    <div class="loader" id="loader" style="display:none;"></div>
+
+    <!-- <div id ="card"  -->
+  </div>
+
+    <script>
+      function Get(yourUrl)
+      {
+          var Httpreq = new XMLHttpRequest(); // a new request
+          Httpreq.open("GET",yourUrl,false);
+          Httpreq.send(null);
+          console.log(Httpreq.responseText);
+          return Httpreq.responseText;
+      }
+
+
+
+      window.onload = function()
+      {
+      	var json_obj = JSON.parse(Get("https://rvngo.azurewebsites.net/relief/0/getassets"));
+        src=json_obj["src"];
+        analytics=json_obj;
+        
+        $("#img1").attr("src",src);
+        $("#male").html("Men: "+analytics["males"]);
+        $("#female").html("Women: "+analytics["female"]);
+        $("#children").html("Children: "+analytics["children"]);
+        $("#elders").html("Elderly :"+analytics["elders"]);
+        maleval=analytics["males"]+5+7
+        femaleval=parseInt(analytics["female"])+0+2
+        childval=parseInt(analytics["children"])+0+0
+        elderval=parseInt(analytics["elders"])+2+0
+        $("#mt").html("Total Men: " + maleval)
+        $("#wt").html("Total Women: " +  femaleval )
+        $("#ct").html("Total Children: " + childval)
+        $("#et").html("Total Elderly: " + elderval)
+        $("#img1").on("load",function()
+        {
+          $("#maincontent").show();
+          $("#loader").hide();
+        });
+      }
+    </script>
+
+  </body>
+</html>
